@@ -26,3 +26,6 @@ go.work.sum
 
 # .json files (api keys)
 *.json
+
+# air
+/tmp
