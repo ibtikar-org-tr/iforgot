@@ -11,5 +11,6 @@ type ID struct {
 	Number    int       `json:"number"`
 	Phone     string    `json:"phone"`
 	Email     string    `json:"email"`
-	LastCheck time.Time `json:"last_check"`
+	LastSent  time.Time `json:"last_check"`
+	Frequency int       `json:"frequency"`
 }
