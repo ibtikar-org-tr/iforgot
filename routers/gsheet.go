@@ -7,4 +7,5 @@ import (
 
 func GsheetRoutes(router *gin.Engine) {
 	router.GET("/gsheet", handlers.GetSheetTitle)
+	router.GET("/firstline", handlers.GetSheetFirstPageFirstLine)
 }
