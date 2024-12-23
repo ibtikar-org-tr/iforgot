@@ -1,0 +1,7 @@
+[build]
+cmd = "go build -o ./tmp/main.exe ."
+bin = "./tmp/main.exe"
+full_bin = "cmd /c tmp\\main.exe"
+include_ext = ["go", "tpl", "tmpl", "html"]
+exclude_dir = ["assets", "tmp", "vendor", "frontend"]
+exclude_file = ["*_test.go"]
