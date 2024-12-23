@@ -23,21 +23,10 @@ func GetGSheet(sheetID string) *sheets.Spreadsheet {
 	return spreadsheet
 }
 
-func GetContactsPage(sheetID string) [][]interface{} {
+func GetSheetTitle(sheetID string) string {
 	sheet := GetGSheet(sheetID)
 	if sheet == nil {
-		return nil
+		return ""
 	}
-
-	for _, sheet := range sheet.Sheets {
-		if sheet.Properties.Title == "Contacts" {
-			resp, err := initializers.Srv.Spreadsheets.Values.Get(sheetID, sheet.Properties.Title).Do()
-			if err != nil {
-				fmt.Printf("Unable to retrieve data from sheet: %v\n", err)
-				return nil
-			}
-			return resp.Values
-		}
-	}
-	return nil
+	return sheet.Properties.Title
 }
