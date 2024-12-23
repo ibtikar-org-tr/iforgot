@@ -23,14 +23,6 @@ func GetGSheet(sheetID string) *sheets.Spreadsheet {
 	return spreadsheet
 }
 
-func GetSheetTitle(sheetID string) string {
-	sheet := GetGSheet(sheetID)
-	if sheet == nil {
-		return ""
-	}
-	return sheet.Properties.Title
-}
-
 func GetContactsPage(sheetID string) [][]interface{} {
 	sheet := GetGSheet(sheetID)
 	if sheet == nil {
@@ -45,24 +37,6 @@ func GetContactsPage(sheetID string) [][]interface{} {
 				return nil
 			}
 			return resp.Values
-		}
-	}
-	return nil
-}
-
-func GetSpecificContact(sheetID string, contactName string) map[string]interface{} {
-	contactsPage := GetContactsPage(sheetID)
-	if contactsPage == nil {
-		return nil
-	}
-
-	for _, contact := range contactsPage {
-		if contact[0] == contactName {
-			contactDetails := make(map[string]interface{})
-			for i, value := range contact {
-				contactDetails[fmt.Sprintf("field%d", i)] = value
-			}
-			return contactDetails
 		}
 	}
 	return nil
