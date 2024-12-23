@@ -9,5 +9,6 @@ import (
 type Session struct {
 	gorm.Model
 	IP        string    `json:"ip"`
-	LastCheck time.Time `json:"last_check"`
+	LastSent  time.Time `json:"last_sent"`
+	Frequency int       `json:"frequency"`
 }
