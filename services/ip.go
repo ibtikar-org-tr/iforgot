@@ -8,13 +8,38 @@ import (
 	"github.com/ibtikar-org-tr/iforgot/repositories"
 )
 
-func GetSessionByIP(c *gin.Context) (*models.Session, error) {
+func GetSession(c *gin.Context) (*models.Session, error) {
 	ip := c.ClientIP()
 	session, err := repositories.GetSessionByIP(ip)
 	if err != nil {
 		return nil, err
 	}
 	return session, nil
+}
+
+func GetSessionByIP(ip string) (*models.Session, error) {
+	session, err := repositories.GetSessionByIP(ip)
+	if err != nil {
+		return nil, err
+	}
+	return session, nil
+}
+
+func StoreSession(ip string) error {
+	session, err := repositories.GetSessionByIP(ip)
+	if err != nil {
+		// If session does not exist, create a new one
+		newSession := &models.Session{
+			IP:        ip,
+			LastSent:  time.Now(),
+			Frequency: 0,
+		}
+		return repositories.CreateSession(newSession)
+	}
+
+	// If session exists, update the LastSent to now
+	session.LastSent = time.Now()
+	return repositories.UpdateSession(session)
 }
 
 func CheckLastSent(session *models.Session) bool {
