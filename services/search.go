@@ -57,13 +57,10 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	}
 
 	// Send the result
-	SendResult(result)
+	go SendResult(result)
 
 	// Create a new session
-	err = StoreSession(ip)
-	if err != nil {
-		return "", err
-	}
+	go StoreSession(ip)
 
 	return "", nil
 }
