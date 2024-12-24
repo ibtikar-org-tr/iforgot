@@ -8,6 +8,10 @@ import (
 
 func SendSMS(phone string, message string) {
 	smsMs := os.Getenv("SMS_MS")
+	if smsMs == "" {
+		fmt.Println("SMS_MS environment variable not set")
+		return
+	}
 	url := fmt.Sprintf("%s?phone=%s&message=%s", smsMs, phone, message)
 
 	resp, err := http.Post(url, "application/x-www-form-urlencoded", nil)
