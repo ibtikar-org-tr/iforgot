@@ -29,13 +29,13 @@ func SendResult(result []interface{}) error {
 
 	message := MessageStructure(mail_value, phone_value, number_value)
 
-	SendSMS(phone_value, message)
+	go SendSMS(phone_value, message)
 	emailRequest := EmailRequest{
 		To:      mail_value,
 		Subject: "Result Notification",
 		Body:    message,
 	}
-	SendMail(emailRequest)
+	go SendMail(emailRequest)
 
 	return nil
 }
