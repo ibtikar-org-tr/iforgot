@@ -2,8 +2,11 @@ package services
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"strconv"
+
+	"github.com/ibtikar-org-tr/iforgot/initializers"
 )
 
 func SearchMain(value, typeOfValue, ip string) (string, error) {
@@ -30,15 +33,19 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	lastColumn := os.Getenv("LAST_COLUMN")
 
 	// Validate the value
+	var valueColumn int
 	if typeOfValue == "email" {
+		valueColumn = initializers.MailRow
 		if !IsValidEmail(value) {
 			return "", errors.New("invalid email format")
 		}
 	} else if typeOfValue == "phone" {
+		valueColumn = initializers.PhoneRow
 		if !IsValidPhone(value) {
 			return "", errors.New("invalid phone format")
 		}
 	} else if typeOfValue == "number" {
+		valueColumn = initializers.NumberRow
 		number, err := strconv.Atoi(value)
 		if err != nil {
 			return "", errors.New("invalid number format")
@@ -50,10 +57,13 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 		return "", errors.New("invalid type")
 	}
 
+	// Log the parameters
+	fmt.Printf("Searching for value: %s, type: %s, sheetID: %s, pageName: %s, lastColumn: %s\n", value, typeOfValue, sheetID, pageName, lastColumn)
+
 	// Search the value
-	result, err := SearchValueInSheet(value, sheetID, pageName, lastColumn)
+	result, err := SearchValueInSheet(value, valueColumn, sheetID, pageName, lastColumn)
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("unable to retrieve data from sheet: %w", err)
 	}
 
 	// Send the result
