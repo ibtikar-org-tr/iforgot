@@ -33,9 +33,13 @@ func GetSheetTitle(sheetID string) (string, error) {
 }
 
 // SearchValueInSheet searches for a specific value in a Google Sheet Page.
-func SearchValueInSheet(valueToSearch, sheetID, pageName, lastColumn string) ([]interface{}, error) {
+func SearchValueInSheet(valueToSearch string, valueColumn int, sheetID, pageName, lastColumn string) ([]interface{}, error) {
 	if lastColumn == "" {
 		lastColumn = "Z"
+	}
+
+	if initializers.Srv == nil {
+		return nil, errors.New("sheets service is not initialized")
 	}
 
 	// readRange := "pageName!A:Z"
@@ -50,7 +54,7 @@ func SearchValueInSheet(valueToSearch, sheetID, pageName, lastColumn string) ([]
 	// Iterate over the rows to search for the value in the second column
 	found := false
 	for i, row := range resp.Values {
-		if len(row) > 0 && strings.Contains(fmt.Sprintf("%v", row[3]), valueToSearch) {
+		if len(row) > 0 && strings.Contains(fmt.Sprintf("%v", row[valueColumn]), valueToSearch) {
 			// Print the entire row if the value matches in the second column
 			fmt.Printf("Found in row %d: %v\n", i+2, row) // i+2 to adjust for the sheet row number
 			found = true
@@ -60,7 +64,7 @@ func SearchValueInSheet(valueToSearch, sheetID, pageName, lastColumn string) ([]
 
 	// If no value was found, print a message
 	if !found {
-		fmt.Println("Value not found in the second column.")
+		fmt.Println("Value not found in the column.", valueColumn+1)
 		return nil, nil
 	}
 
