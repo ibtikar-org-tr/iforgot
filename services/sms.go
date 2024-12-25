@@ -3,11 +3,12 @@ package services
 import (
 	"fmt"
 	"net/http"
-	"os"
+
+	"github.com/ibtikar-org-tr/iforgot/initializers"
 )
 
 func SendSMS(phone string, message string) {
-	smsMs := os.Getenv("SMS_MS")
+	smsMs := initializers.SMS_MS
 	if smsMs == "" {
 		fmt.Println("SMS_MS environment variable not set")
 		return
