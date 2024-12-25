@@ -2,23 +2,14 @@ package services
 
 import (
 	"fmt"
-	"os"
-	"strconv"
+
+	"github.com/ibtikar-org-tr/iforgot/initializers"
 )
 
 func SendResult(result []interface{}) error {
-	mail_row, err := strconv.Atoi(os.Getenv("MAIL_ROW"))
-	if err != nil {
-		return err
-	}
-	phone_row, err := strconv.Atoi(os.Getenv("PHONE_ROW"))
-	if err != nil {
-		return err
-	}
-	number_row, err := strconv.Atoi(os.Getenv("NUMBER_ROW"))
-	if err != nil {
-		return err
-	}
+	mail_row := initializers.MailRow
+	phone_row := initializers.PhoneRow
+	number_row := initializers.NumberRow
 
 	mail_value := result[mail_row].(string)
 	fmt.Print(mail_value)
