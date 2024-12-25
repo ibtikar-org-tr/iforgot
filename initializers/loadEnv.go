@@ -66,4 +66,29 @@ func LoadEnv() {
 	if LastColumn == "" {
 		log.Fatal("LAST_COLUMN environment variable is not set")
 	}
+
+	SMTP_User := os.Getenv("SMTP_USER")
+	if SMTP_User == "" {
+		log.Fatal("SMTP_USER environment variable is not set")
+	}
+
+	SMTP_Pass := os.Getenv("SMTP_PASS")
+	if SMTP_Pass == "" {
+		log.Fatal("SMTP_PASS environment variable is not set")
+	}
+
+	SMTP_Host := os.Getenv("SMTP_HOST")
+	if SMTP_Host == "" {
+		log.Fatal("SMTP_HOST environment variable is not set")
+	}
+
+	SMTP_Port := os.Getenv("SMTP_PORT")
+	if SMTP_Port == "" {
+		log.Fatal("SMTP_PORT environment variable is not set")
+	}
+
+	SMS_MS := os.Getenv("SMS_MS")
+	if SMS_MS == "" {
+		log.Fatal("SMS_MS environment variable is not set")
+	}
 }
