@@ -2,15 +2,15 @@ package handlers
 
 import (
 	"net/http"
-	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/ibtikar-org-tr/iforgot/initializers"
 	"github.com/ibtikar-org-tr/iforgot/services"
 )
 
 func GetSheetTitle(c *gin.Context) {
-	sheetID := os.Getenv("SHEET_ID")
+	sheetID := initializers.SheetID
 	sheetName, err := services.GetSheetTitle(sheetID)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
