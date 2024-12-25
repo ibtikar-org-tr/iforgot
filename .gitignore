@@ -25,7 +25,7 @@ go.work.sum
 .env
 
 # .json files (api keys)
-*.json
+GOOGLE_API.json
 
 # air
 /tmp
