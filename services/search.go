@@ -8,25 +8,6 @@ import (
 	"github.com/ibtikar-org-tr/iforgot/initializers"
 )
 
-// Define a custom type for the allowed values
-type ValueType string
-
-const (
-	Number ValueType = "number"
-	Mail   ValueType = "mail"
-	Phone  ValueType = "phone"
-)
-
-// Validate the typeOfValue
-func validateTypeOfValue(typeOfValue string) (ValueType, error) {
-	switch ValueType(typeOfValue) {
-	case Number, Mail, Phone:
-		return ValueType(typeOfValue), nil
-	default:
-		return "", errors.New("invalid typeOfValue, must be one of: number, mail, phone")
-	}
-}
-
 func SearchMain(value, typeOfValue, ip string) (string, error) {
 	// Check if the session is valid
 	session, _ := GetSessionByIP(ip)
@@ -59,9 +40,9 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 		}
 	case Phone:
 		valueColumn = initializers.PhoneRow
-		if !IsValidPhone(value) {
-			return "", errors.New("invalid phone format")
-		}
+		// if !IsValidPhone(value) {
+		// 	return "", errors.New("invalid phone format")
+		// }
 	case Number:
 		valueColumn = initializers.NumberRow
 		number, err := strconv.Atoi(value)
