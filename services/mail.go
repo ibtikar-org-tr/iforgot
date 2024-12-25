@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"log"
 	"net/smtp"
 	"strings"
@@ -19,6 +20,11 @@ func SendMail(emailReq EmailRequest) error {
 	password := initializers.SMTP_Pass
 	smtpHost := initializers.SMTP_Host
 	smtpPort := initializers.SMTP_Port
+
+	if from == "" || password == "" || smtpHost == "" || smtpPort == "" {
+		log.Println("SMTP environment variables not set")
+		return fmt.Errorf("SMTP environment variables not set")
+	}
 
 	recipients := strings.Split(emailReq.To, ",")
 	// Filter out empty email addresses
@@ -43,7 +49,7 @@ func SendMail(emailReq EmailRequest) error {
 
 	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, validRecipients, message)
 	if err != nil {
-		log.Fatalf("smtp error: %s", err)
+		fmt.Printf("Failed to send email: %v\n", err)
 		return err
 	}
 
