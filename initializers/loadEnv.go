@@ -17,6 +17,11 @@ var (
 	SheetID    string
 	PageName   string
 	LastColumn string
+	SMTP_User  string
+	SMTP_Pass  string
+	SMTP_Host  string
+	SMTP_Port  string
+	SMS_MS     string
 )
 
 func LoadEnv() {
