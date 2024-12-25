@@ -3,7 +3,6 @@ package services
 import (
 	"errors"
 	"fmt"
-	"os"
 	"strconv"
 
 	"github.com/ibtikar-org-tr/iforgot/initializers"
@@ -20,17 +19,12 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	}
 
 	// Declarations
-	value_min, err := strconv.Atoi(os.Getenv("VALUE_MIN"))
-	if err != nil {
-		return "", errors.New("invalid VALUE_MIN environment variable")
-	}
-	value_max, err := strconv.Atoi(os.Getenv("VALUE_MAX"))
-	if err != nil {
-		return "", errors.New("invalid VALUE_MAX environment variable")
-	}
-	sheetID := os.Getenv("SHEET_ID")
-	pageName := os.Getenv("PAGE_NAME")
-	lastColumn := os.Getenv("LAST_COLUMN")
+	value_min := initializers.ValueMin
+	value_max := initializers.ValueMax
+
+	sheetID := initializers.SheetID
+	pageName := initializers.PageName
+	lastColumn := initializers.LastColumn
 
 	// Validate the value
 	var valueColumn int
