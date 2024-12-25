@@ -3,10 +3,9 @@ package services
 import (
 	"log"
 	"net/smtp"
-	"os"
 	"strings"
 
-	"github.com/joho/godotenv"
+	"github.com/ibtikar-org-tr/iforgot/initializers"
 )
 
 type EmailRequest struct {
@@ -16,15 +15,10 @@ type EmailRequest struct {
 }
 
 func SendMail(emailReq EmailRequest) error {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Error loading .env file")
-	}
-
-	from := os.Getenv("SMTP_USER")
-	password := os.Getenv("SMTP_PASS")
-	smtpHost := os.Getenv("SMTP_HOST")
-	smtpPort := os.Getenv("SMTP_PORT")
+	from := initializers.SMTP_User
+	password := initializers.SMTP_Pass
+	smtpHost := initializers.SMTP_Host
+	smtpPort := initializers.SMTP_Port
 
 	recipients := strings.Split(emailReq.To, ",")
 	// Filter out empty email addresses
@@ -47,7 +41,7 @@ func SendMail(emailReq EmailRequest) error {
 
 	auth := smtp.PlainAuth("", from, password, smtpHost)
 
-	err = smtp.SendMail(smtpHost+":"+smtpPort, auth, from, validRecipients, message)
+	err := smtp.SendMail(smtpHost+":"+smtpPort, auth, from, validRecipients, message)
 	if err != nil {
 		log.Fatalf("smtp error: %s", err)
 		return err
