@@ -6,6 +6,7 @@ import (
 )
 
 func GsheetRoutes(router *gin.Engine) {
-	router.GET("/gsheet", handlers.GetSheetTitle)
-	router.GET("/search", handlers.SearchValueInSheet)
+	router.GET("/search", handlers.SearchHandler)
+	router.GET("/sheet", handlers.GetSheetTitle)
+	router.GET("/value", handlers.SearchValueInSheet)
 }
