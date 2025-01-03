@@ -7,7 +7,10 @@ import (
 func AllRouters() {
 	router := gin.New()
 
+	RegisterStaticRoutes(router)
+	RegisterHTMLRoutes(router)
+
 	GsheetRoutes(router)
 
-	router.Run(":8012")
+	router.Run(":8013")
 }
