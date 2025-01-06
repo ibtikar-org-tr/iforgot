@@ -7,8 +7,7 @@ import (
 
 func RegisterStaticRoutes(router *gin.Engine) {
 	/* CSS & JS */
-	router.Static("/css", "./src/css")
-	router.Static("/js", "./src/js")
+	router.Static("/dist", "./src/dist")
 	/* HTML */
 	router.LoadHTMLGlob("./src/*.html")
 }
