@@ -14,9 +14,12 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	if session != nil {
 		session_police := CheckLastSent(session)
 		if !session_police {
-			return "", errors.New("too many requests")
+			return "err: too many requests", errors.New("too many requests")
 		}
 	}
+
+	// Log the request
+	fmt.Printf("Searching for value: %s, type: %s\n", value, typeOfValue)
 
 	// Declarations
 	value_min := initializers.ValueMin
@@ -29,14 +32,14 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	// Validate the value
 	validTypeOfValue, err := validateTypeOfValue(typeOfValue)
 	if err != nil {
-		return "", err
+		return "err: validation error", err
 	}
 	var valueColumn int
 	switch validTypeOfValue {
 	case Mail:
 		valueColumn = initializers.MailRow
 		if !IsValidEmail(value) {
-			return "", errors.New("invalid email format")
+			return "err: invalid email format", errors.New("invalid email format")
 		}
 	case Phone:
 		valueColumn = initializers.PhoneRow
@@ -47,13 +50,13 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 		valueColumn = initializers.NumberRow
 		number, err := strconv.Atoi(value)
 		if err != nil {
-			return "", errors.New("invalid number format")
+			return "err: invalid number format", errors.New("invalid number format")
 		}
 		if number < value_min || number > value_max {
-			return "", errors.New("number out of range")
+			return "err: number out of range", errors.New("number out of range")
 		}
 	default:
-		return "", errors.New("invalid type")
+		return "err: invalid type", errors.New("invalid type")
 	}
 
 	// Log the parameters
@@ -62,7 +65,7 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	// Search the value
 	result, err := SearchValueInSheet(value, valueColumn, sheetID, pageName, lastColumn)
 	if err != nil {
-		return "", fmt.Errorf("unable to retrieve data from sheet: %w", err)
+		return "err: unable to retrieve data", fmt.Errorf("unable to retrieve data from sheet: %w", err)
 	}
 
 	// Send the result
@@ -71,5 +74,5 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	// Create a new session
 	go StoreSession(ip)
 
-	return "", nil
+	return "success", nil
 }
