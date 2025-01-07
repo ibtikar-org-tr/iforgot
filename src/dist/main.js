@@ -37,12 +37,7 @@ document.getElementById('searchForm').addEventListener('submit', async (event) =
         const messageElement = document.getElementById('responseMessage');
         messageElement.innerText = result;
         messageElement.style.display = 'block';
-
-        if (result.includes('success')) {
-            document.getElementById('successMessage').innerText = 'Form submitted successfully!';
-            document.getElementById('successMessage').style.display = 'block';
-            document.getElementById('searchForm').style.display = 'none'; // Hide the form
-        }
+        document.getElementById('searchForm').style.display = 'none'; // Hide the form
     } catch (error) {
         console.error('Error:', error);
     }
