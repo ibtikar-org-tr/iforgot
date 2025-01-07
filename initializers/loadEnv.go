@@ -73,27 +73,27 @@ func LoadEnv() {
 		fmt.Printf("LAST_COLUMN environment variable is not set")
 	}
 
-	SMTP_User := os.Getenv("SMTP_USER")
+	SMTP_User = os.Getenv("SMTP_USER")
 	if SMTP_User == "" {
 		fmt.Printf("SMTP_USER environment variable is not set")
 	}
 
-	SMTP_Pass := os.Getenv("SMTP_PASS")
+	SMTP_Pass = os.Getenv("SMTP_PASS")
 	if SMTP_Pass == "" {
 		fmt.Printf("SMTP_PASS environment variable is not set")
 	}
 
-	SMTP_Host := os.Getenv("SMTP_HOST")
+	SMTP_Host = os.Getenv("SMTP_HOST")
 	if SMTP_Host == "" {
 		fmt.Printf("SMTP_HOST environment variable is not set")
 	}
 
-	SMTP_Port := os.Getenv("SMTP_PORT")
+	SMTP_Port = os.Getenv("SMTP_PORT")
 	if SMTP_Port == "" {
 		fmt.Printf("SMTP_PORT environment variable is not set")
 	}
 
-	SMS_MS := os.Getenv("SMS_MS")
+	SMS_MS = os.Getenv("SMS_MS")
 	if SMS_MS == "" {
 		fmt.Printf("SMS_MS environment variable is not set")
 	}
