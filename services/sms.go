@@ -3,6 +3,7 @@ package services
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 
 	"github.com/ibtikar-org-tr/iforgot/initializers"
 )
@@ -13,7 +14,12 @@ func SendSMS(phone string, message string) {
 		fmt.Println("SMS_MS environment variable not set")
 		return
 	}
-	url := fmt.Sprintf("%s?phone=%s&message=%s", smsMs, phone, message)
+
+	// URL-encode the phone number and message
+	encodedPhone := url.QueryEscape(phone)
+	encodedMessage := url.QueryEscape(message)
+
+	url := fmt.Sprintf("%s?phone=%s&message=%s", smsMs, encodedPhone, encodedMessage)
 
 	resp, err := http.Post(url, "application/x-www-form-urlencoded", nil)
 	if err != nil {
