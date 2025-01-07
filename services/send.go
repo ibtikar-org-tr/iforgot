@@ -11,6 +11,11 @@ func SendResult(result []interface{}) error {
 	phone_row := initializers.PhoneRow
 	number_row := initializers.NumberRow
 
+	// Check if indices are within bounds
+	if mail_row >= len(result) || phone_row >= len(result) || number_row >= len(result) {
+		return fmt.Errorf("index out of range")
+	}
+
 	mail_value := result[mail_row].(string)
 	fmt.Print(mail_value)
 	phone_value := result[phone_row].(string)
