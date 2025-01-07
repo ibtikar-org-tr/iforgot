@@ -8,8 +8,20 @@ import (
 )
 
 func SearchHandler(c *gin.Context) {
-	value := c.Query("value")
 	typeOfValue := c.Query("type")
+	var value string
+
+	switch typeOfValue {
+	case "number":
+		value = c.Query("number")
+	case "phone":
+		value = c.Query("phone")
+	case "mail":
+		value = c.Query("mail")
+	default:
+		c.JSON(400, gin.H{"error": "Invalid type"})
+		return
+	}
 
 	ip := c.ClientIP()
 
