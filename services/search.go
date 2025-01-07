@@ -68,6 +68,11 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 		return "err: unable to retrieve data", fmt.Errorf("unable to retrieve data from sheet: %w", err)
 	}
 
+	// Check if result is empty
+	if result == nil {
+		return "err: value not found", errors.New("value not found")
+	}
+
 	// Send the result
 	go SendResult(result)
 
