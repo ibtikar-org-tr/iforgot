@@ -74,5 +74,7 @@ func SearchMain(value, typeOfValue, ip string) (string, error) {
 	// Create a new session
 	go StoreSession(ip)
 
-	return "success", nil
+	mail := result[initializers.MailRow].(string)
+
+	return mail, nil
 }
