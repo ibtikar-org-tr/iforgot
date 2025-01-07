@@ -1,6 +1,6 @@
 # Makefile for running go in the background
 
-# Define the app command as a variable for easier reuse
+# Define the app command as a variable
 CMD = nohup go run main.go &
 
 # Target to start the go app in the background
