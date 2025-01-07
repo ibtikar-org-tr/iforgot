@@ -1,6 +1,8 @@
 package handlers
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/ibtikar-org-tr/iforgot/services"
 )
@@ -10,6 +12,9 @@ func SearchHandler(c *gin.Context) {
 	typeOfValue := c.Query("type")
 
 	ip := c.ClientIP()
+
+	// log the request
+	fmt.Printf("Searching for value: %s, type: %s\n", value, typeOfValue)
 
 	result, err := services.SearchMain(value, typeOfValue, ip)
 	if err != nil {
