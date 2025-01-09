@@ -10,19 +10,22 @@ import (
 )
 
 var (
-	MailRow    int
-	PhoneRow   int
-	NumberRow  int
-	ValueMin   int
-	ValueMax   int
-	SheetID    string
-	PageName   string
-	LastColumn string
-	SMTP_User  string
-	SMTP_Pass  string
-	SMTP_Host  string
-	SMTP_Port  string
-	SMS_MS     string
+	MailRow       int
+	PhoneRow      int
+	NumberRow     int
+	PasswordRow   int
+	ValueMin      int
+	ValueMax      int
+	HeaderMessage string
+	FooterMessage string
+	SheetID       string
+	PageName      string
+	LastColumn    string
+	SMTP_User     string
+	SMTP_Pass     string
+	SMTP_Host     string
+	SMTP_Port     string
+	SMS_MS        string
 )
 
 func LoadEnv() {
@@ -48,6 +51,11 @@ func LoadEnv() {
 		fmt.Printf("Invalid NUMBER_ROW environment variable: %v", err)
 	}
 
+	PasswordRow, err = strconv.Atoi(os.Getenv("PASSWORD_ROW"))
+	if err != nil {
+		fmt.Printf("Invalid PASSWORD_ROW environment variable: %v", err)
+	}
+
 	ValueMin, err = strconv.Atoi(os.Getenv("VALUE_MIN"))
 	if err != nil {
 		fmt.Printf("Invalid VALUE_MIN environment variable: %v", err)
@@ -56,6 +64,16 @@ func LoadEnv() {
 	ValueMax, err = strconv.Atoi(os.Getenv("VALUE_MAX"))
 	if err != nil {
 		fmt.Printf("Invalid VALUE_MAX environment variable: %v", err)
+	}
+
+	HeaderMessage = os.Getenv("HEADER_MESSAGE")
+	if HeaderMessage == "" {
+		fmt.Printf("HEADER_MESSAGE environment variable is not set")
+	}
+
+	FooterMessage = os.Getenv("FOOTER_MESSAGE")
+	if FooterMessage == "" {
+		fmt.Printf("FOOTER_MESSAGE environment variable is not set")
 	}
 
 	SheetID = os.Getenv("SHEET_ID")
